@@ -3,6 +3,7 @@ from app import app
 from config import mysql
 from flask import jsonify
 from flask import flash, request
+import base64
 
 @app.route("/")
 def homepage():
@@ -122,6 +123,13 @@ def upload_image():
     try:
         # Get the file from the request
         file = request.files['file']
+
+        # Read the contents of the file
+        file_contents = file.read()
+
+        # Convert the file to a base64-encoded string
+        image_string = base64.b64encode(file_contents).decode('utf-8')
+        print(image_string)
 
         # Save the file to a desired location
         # Assuming you want to save it in a folder named "uploads" in the current directory
